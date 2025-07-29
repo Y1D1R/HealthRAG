@@ -8,3 +8,4 @@ faiss-cpu
 flask
 python-dotenv
 sentence-transformers
+hf_xet

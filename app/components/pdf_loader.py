@@ -4,7 +4,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 from app.common.logger import get_logger
 from app.common.custom_exception import CustomException
-from app.config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP
+from app.config.config import DATA_DIR, CHUNK_SIZE, CHUNK_OVERLAP
 
 logger = get_logger(__name__)
 

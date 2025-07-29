@@ -1,5 +1,5 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-from config.config import HF_EMBEDDINGS_MODEL
+from app.config.config import HF_EMBEDDINGS_MODEL
 
 from app.common.logger import get_logger
 from app.common.custom_exception import CustomException

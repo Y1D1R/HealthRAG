@@ -1,3 +1,5 @@
 /.trunk
 /healthrag_env
 /HealthRAG.egg-info
+/.env
+/data/

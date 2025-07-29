@@ -2,4 +2,6 @@
 /healthrag_env
 /HealthRAG.egg-info
 /.env
-/data/
+data/*
+!/data/.gitkeep
+

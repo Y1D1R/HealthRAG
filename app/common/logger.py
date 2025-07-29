@@ -10,11 +10,7 @@ LOG_FILE = os.path.join(LOGS_DIR, f"log_{datetime.now().strftime('%Y-%m-%d')}.lo
 logging.basicConfig(
     filename=LOG_FILE,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    level=logging.INFO,
-    handlers=[
-        logging.FileHandler(LOG_FILE),
-        logging.StreamHandler()  # Logs will also be printed in the console
-    ]
+    level=logging.INFO
 )
 
 def get_logger(name: str) -> logging.Logger:

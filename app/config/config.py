@@ -1,10 +1,14 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
 # Hugging Face access token
 HF_TOKEN = os.environ.get("HF_TOKEN")
 
 # LLM model repo ID
-HF_REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
+HF_REPO_ID = "zai-org/GLM-4.5:novita"
+print(f"Using Hugging Face repo ID: {HF_REPO_ID}")
 
 # Embeddings model
 HF_EMBEDDINGS_MODEL = "sentence-transformers/all-MiniLM-L6-v2"

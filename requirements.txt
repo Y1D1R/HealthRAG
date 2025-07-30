@@ -2,6 +2,7 @@ huggingface_hub
 langchain
 langchain_community
 langchain_huggingface
+langchain-huggingface
 langchain_groq
 pypdf
 faiss-cpu
@@ -9,3 +10,4 @@ flask
 python-dotenv
 sentence-transformers
 hf_xet
+openai

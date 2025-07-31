@@ -1,0 +1,13 @@
+.trunk/
+__pycache__/
+*.pyc
+*.pkl
+*.log
+.env
+data/
+healthrag_env/
+HealthRAG.egg-info/
+scripts/
+vectorstore/
+rag_jenkins/
+logs/

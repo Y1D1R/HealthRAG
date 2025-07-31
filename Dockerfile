@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
 COPY . .
 
 RUN pip install --no-cache-dir -e . && pip cache purge
+RUN python app/components/data_loader.py
 
 EXPOSE 5000
 

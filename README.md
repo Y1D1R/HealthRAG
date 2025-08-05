@@ -18,7 +18,7 @@ HealthRAG is a medical Q&A chatbot that responds to user queries by retrieving r
 
 ## 🎥 Demo
 
-👉 _A GIF demo will be added here soon._
+![Demo](HealthRag_demo.gif)
 
 ---
 

@@ -1,5 +1,8 @@
-import os
+"""
+This module provides configuration settings for the application.
+"""
 
+import os
 from dotenv import load_dotenv
 
 load_dotenv()

@@ -1,7 +1,12 @@
-from flask import Flask,render_template,request,session,redirect,url_for
-from app.components.retriever import create_retrieval_qa_chain
-from dotenv import load_dotenv
+"""
+This is a Flask web application that provides a medical question-answering service.
+"""
+
 import os
+from flask import Flask, render_template, request, session, redirect, url_for
+from markupsafe import Markup
+from dotenv import load_dotenv
+from app.components.retriever import create_retrieval_qa_chain
 
 load_dotenv()
 HF_TOKEN = os.environ.get("HF_TOKEN")
@@ -9,23 +14,31 @@ HF_TOKEN = os.environ.get("HF_TOKEN")
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-from markupsafe import Markup
+
 def nl2br(value):
-    return Markup(value.replace("\n" , "<br>\n"))
+    """
+    Convert newlines in text to HTML line breaks.
+    """
+    return Markup(value.replace("\n", "<br>\n"))
 
-app.jinja_env.filters['nl2br'] = nl2br
 
-@app.route("/" , methods=["GET","POST"])
+app.jinja_env.filters["nl2br"] = nl2br
+
+
+@app.route("/", methods=["GET", "POST"])
 def index():
+    """
+    This is the main route for the web application.
+    """
     if "messages" not in session:
-        session["messages"]=[]
+        session["messages"] = []
 
-    if request.method=="POST":
+    if request.method == "POST":
         user_input = request.form.get("prompt")
 
         if user_input:
             messages = session["messages"]
-            messages.append({"role" : "user" , "content":user_input})
+            messages.append({"role": "user", "content": user_input})
             session["messages"] = messages
 
             try:
@@ -57,8 +70,7 @@ def index():
                 """
 
                 raw_response = llm.invoke(custom_prompt)
-                
-                #print(f"Raw response from LLM: {raw_response}")
+                # print(f"Raw response from LLM: {raw_response}")
                 if "</think>" in raw_response:
                     final_answer = raw_response.split("</think>")[-1].strip()
                 else:
@@ -69,18 +81,21 @@ def index():
 
             except Exception as e:
                 error_msg = f"Error : {str(e)}"
-                return render_template("index.html" , messages = session["messages"] , error = error_msg)
-            
+                return render_template(
+                    "index.html", messages=session["messages"], error=error_msg
+                )
         return redirect(url_for("index"))
-    return render_template("index.html" , messages=session.get("messages" , []))
+    return render_template("index.html", messages=session.get("messages", []))
+
 
 @app.route("/clear")
 def clear():
-    session.pop("messages" , None)
+    """
+    This route clears the chat history.
+    """
+    session.pop("messages", None)
     return redirect(url_for("index"))
 
-if __name__=="__main__":
-    app.run(host="0.0.0.0" , port=5000 , debug=False , use_reloader = False)
 
-
-
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=False, use_reloader=False)

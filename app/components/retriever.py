@@ -1,21 +1,21 @@
-from langchain.chains import RetrievalQA
+"""
+This module provides functionality to work with the retrieval process.
+"""
+
+import warnings
 from langchain_core.prompts import PromptTemplate
 
 from app.components.vector_store import load_vector_store
 from app.components.llm import load_llm
 
-from app.config.config import HF_REPO_ID,HF_TOKEN
-
 from app.common.logger import get_logger
 from app.common.custom_exception import CustomException
 
-import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 logger = get_logger(__name__)
-
-CUSTOM_PROMPT = """ 
-You are a professional medical assistant. You must reply concisely and directly to the user's question using only the context.
+CUSTOM_PROMPT = """ You are a professional medical assistant.
+You must reply concisely and directly to the user's question using only the context.
 
 Analyze the question or the context.
 Do NOT explain your thought process.  
@@ -34,12 +34,16 @@ Question:
 Answer:
 """
 
+
 def set_custom_prompt():
     """
     Sets a custom prompt for the RetrievalQA chain.
     """
-    return PromptTemplate( template=CUSTOM_PROMPT, input_variables=["context", "question"])
-    
+    return PromptTemplate(
+        template=CUSTOM_PROMPT, input_variables=["context", "question"]
+    )
+
+
 def create_retrieval_qa_chain():
     """
     Prepares the retriever and LLM for manual prompting.
@@ -50,7 +54,9 @@ def create_retrieval_qa_chain():
         logger.info("Loading vector store...")
         vector_store_db = load_vector_store()
         if vector_store_db is None:
-            raise CustomException("Vector store not loaded properly (missing or empty).")
+            raise CustomException(
+                "Vector store not loaded properly (missing or empty)."
+            )
 
         logger.info("Loading LLM...")
         llm = load_llm()
@@ -63,4 +69,4 @@ def create_retrieval_qa_chain():
     except Exception as e:
         error_msg = CustomException("Failed to prepare retriever and LLM", e)
         logger.error(str(error_msg))
-        raise error_msg
+        raise error_msg from e
